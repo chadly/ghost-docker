@@ -1,0 +1,30 @@
+services:
+  web_server:
+    container_name: ghost_nginx
+    build:
+      context: .
+      target: nginx
+    depends_on:
+      - ghost_tinytyrant
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      CERTBOT_EMAIL: ${SSL_EMAIL}
+    volumes:
+      - /var/dockervol/nginx:/etc/letsencrypt:Z
+
+  ghost_tinytyrant:
+    container_name: ghost_tinytyrant
+    build:
+      context: .
+      target: ghost
+    restart: always
+    environment:
+      url: https://blog.tinytyrant.wtf
+      mail__from: blog@tinytyrant.wtf
+      mail__options__auth__user: blog@tinytyrant.wtf
+      mail__options__auth__pass: ${TINY_TYRANT_MAILGUN_PASSWORD}
+    volumes:
+      - /var/dockervol/ghost-tinytyrant:/var/lib/ghost/content:Z
