@@ -5,7 +5,7 @@ services:
       context: .
       target: nginx
     depends_on:
-      - ghost_tinytyrant
+      - varnish
     restart: always
     ports:
       - 80:80
@@ -14,6 +14,15 @@ services:
       CERTBOT_EMAIL: ${SSL_EMAIL}
     volumes:
       - /var/dockervol/nginx:/etc/letsencrypt:Z
+
+  varnish:
+    container_name: ghost_cache
+    build:
+      context: .
+      target: cache
+    depends_on:
+      - ghost_tinytyrant
+    restart: always
 
   ghost_tinytyrant:
     container_name: ghost_tinytyrant
