@@ -23,7 +23,7 @@ services:
     restart: always
     environment:
       url: https://blog.tinytyrant.wtf
-      mail__from: blog@tinytyrant.wtf
+      mail__from: "'Carson the Tyrant' <blog@tinytyrant.wtf>"
       mail__options__auth__user: blog@tinytyrant.wtf
       mail__options__auth__pass: ${TINY_TYRANT_MAILGUN_PASSWORD}
     volumes:
