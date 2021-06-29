@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Destroy via Docker Compose
+      - name: docker-compose down
         uses: chadly/docker-deployment-action@upgrade-docker-compose
         with:
           remote_docker_host: root@${{ secrets.HOST }}
@@ -17,6 +17,3 @@ jobs:
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           stack_file_name: docker-compose.yml
           args: -p ghost_docker down
-        env:
-          TINY_TYRANT_MAILGUN_PASSWORD: ${{ secrets.TINY_TYRANT_MAILGUN_PASSWORD }}
-          SSL_EMAIL: ${{ secrets.SSL_EMAIL }}

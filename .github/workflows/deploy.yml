@@ -12,7 +12,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Deploy via Docker Compose
+
+      - name: docker-compose down
+        uses: chadly/docker-deployment-action@upgrade-docker-compose
+        with:
+          remote_docker_host: root@${{ secrets.HOST }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          stack_file_name: docker-compose.yml
+          args: -p ghost_docker down
+
+      - name: docker-compose up
         uses: chadly/docker-deployment-action@upgrade-docker-compose
         with:
           remote_docker_host: root@${{ secrets.HOST }}
