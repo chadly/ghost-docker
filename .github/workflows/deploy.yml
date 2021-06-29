@@ -1,0 +1,26 @@
+
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  docker-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy via Docker Compose
+        uses: chadly/docker-deployment-action@upgrade-docker-compose
+        with:
+          remote_docker_host: root@${{ secrets.HOST }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          stack_file_name: docker-compose.yml
+          args: -p ghost_docker up -d
+          docker_prune: 'true'
+          pull_images_first: 'true'
+        env:
+          TINY_TYRANT_MAILGUN_PASSWORD: ${{ secrets.TINY_TYRANT_MAILGUN_PASSWORD }}
+          SSL_EMAIL: ${{ secrets.SSL_EMAIL }}
