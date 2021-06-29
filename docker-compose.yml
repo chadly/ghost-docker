@@ -6,6 +6,7 @@ services:
       target: nginx
     depends_on:
       - ghost_tinytyrant
+      - ghost_gfkitchen
     restart: always
     ports:
       - 80:80
@@ -28,3 +29,17 @@ services:
       mail__options__auth__pass: ${TINY_TYRANT_MAILGUN_PASSWORD}
     volumes:
       - /var/dockervol/ghost-tinytyrant:/var/lib/ghost/content:Z
+
+  ghost_gfkitchen:
+    container_name: ghost_gfkitchen
+    build:
+      context: .
+      target: ghost
+    restart: always
+    environment:
+      url: https://gf.kitchen
+      mail__from: "'Alanna Lee' <alanna@gf.kitchen>"
+      mail__options__auth__user: postmaster@gf.kitchen
+      mail__options__auth__pass: ${GF_KITCHEN_MAILGUN_PASSWORD}
+    volumes:
+      - /var/dockervol/ghost-gfkitchen:/var/lib/ghost/content:Z
