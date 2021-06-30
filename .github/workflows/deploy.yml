@@ -35,3 +35,4 @@ jobs:
         env:
           TINY_TYRANT_MAILGUN_PASSWORD: ${{ secrets.TINY_TYRANT_MAILGUN_PASSWORD }}
           SSL_EMAIL: ${{ secrets.SSL_EMAIL }}
+          GF_KITCHEN_MAILGUN_PASSWORD: ${{ secrets.GF_KITCHEN_MAILGUN_PASSWORD }}

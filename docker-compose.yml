@@ -38,7 +38,7 @@ services:
     restart: always
     environment:
       url: https://gf.kitchen
-      mail__from: "'Alanna Lee' <alanna@gf.kitchen>"
+      mail__from: "'The Gluten Free Gourmand' <alanna@gf.kitchen>"
       mail__options__auth__user: postmaster@gf.kitchen
       mail__options__auth__pass: ${GF_KITCHEN_MAILGUN_PASSWORD}
     volumes:
